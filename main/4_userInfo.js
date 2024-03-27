@@ -1,23 +1,43 @@
 import { TransitionIOSSpec } from '@react-navigation/stack/lib/typescript/src/TransitionConfigs/TransitionSpecs';
 import React, { Component } from 'react';
-import { TouchableOpacity, View, Text, Button, StyleSheet, Image } from 'react-native';
+import { TouchableOpacity, View, Text, Button, StyleSheet, Image, Dimensions } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import Ionicons from 'react-native-vector-icons/Ionicons'
-
-function InfoDisplay({ info }) {
-    return (
-        <View>
-            <Text>{info.num}</Text>
-            <Text>{info.title}</Text>
-        </View>
-    );
-};
+import { ITLogo } from "../asserts/IT.jpg";
+// function InfoDisplay({ info }) {
+//     return (
+//         <View>
+//             <Text>{info.num}</Text>
+//             <Text>{info.title}</Text>
+//         </View>
+//     );
+// };
 
 function MineButton({ person }) {
+    // const imgName = person.source;
+    // console.log(imgName);
+    // const souc = '../asserts/' + imgName + '.png';
+    switch (person.value) {
+        case 1:
+            this.souc = '../asserts/formation.png'
+            break;
+
+        default:
+            this.souc = '../asserts/formation.png'
+            break;
+    }
     return (
-        <TouchableOpacity>
-            <Ionicons name={person.source} style={[styles.ioni]} />
-            <Text>{person.name}</Text>
+        <TouchableOpacity style={[styles.selfFunc]}>
+
+            <Image
+                // source={{ uri: souc }}
+                source={require('../asserts/formation.png')}
+                // source={require(person.source)}
+                // source={require('@expo/snack-static/react-native-logo.png')}
+                style={[styles.funcImg]}
+            />
+            {/* <Ionicons name={person.source} style={[styles.ioni]} /> */}
+            <Text style={[styles.funcName]}>{person.name}</Text>
         </TouchableOpacity>
 
     );
@@ -25,74 +45,132 @@ function MineButton({ person }) {
 
 function UserInfoScreen({ navigation }) {
     return (
-        <View style={[styles.total]}>
+        <View >
             {/* <View style={[styles.top]}> */}
-            <TouchableOpacity style={[styles.top]}>
-                <View>
-                    <Text>头像</Text>
+            <View style={[styles.top]}>
+                <View style={[styles.headDisplay]}>
+                    {/* <Text>头像</Text> */}
+                    <Image
+                        source={require('../asserts/IT.jpg')}
+                        style={[styles.head]}
+                    />
                 </View>
-                <View>
-                    <View>
-                        <Text>名称</Text>
+                <View style={[styles.selfInfo]}>
+                    <View style={[styles.nameDisplay]}>
+                        <Text style={[styles.nameInner]}>名称</Text>
                     </View>
-                    <View>
-                        <Text>夸克小说，快乐追书~</Text>
-                    </View>
+                    {/* <View> */}
+                    <Text style={[styles.ITIntro]}>IT小说，快乐追书~</Text>
+                    {/* </View> */}
                 </View>
-                <View>
-                    <Text>个人主页 ＞</Text>
+                <View style={[styles.editInfo]}>
+                    {/* <Text>编辑资料 ＞</Text> */}
+                    <Button
+                        title='编辑资料 ＞'
+                        color='#0e53ff'
+                    />
                 </View>
-            </TouchableOpacity>
+            </View>
             {/* </View> */}
 
-            <View style={[styles.infoDisplays]}>
+            {/* <View style={[styles.infoDisplays]}>
                 <InfoDisplay info={{ title: "关注", num: 0 }} />
                 <InfoDisplay info={{ title: "粉丝", num: 1 }} />
                 <InfoDisplay info={{ title: "获赞", num: 2 }} />
-            </View>
+            </View> */}
 
             <View style={[styles.mineButtons]}>
-                <MineButton person={{ name: "我的消息", source: 'chatbubbles-outline' }} />
-                <MineButton person={{ name: "我的评论", source: "chatbubble-ellipses-outline" }} />
-                <MineButton person={{ name: "我的帖子", source: "document-text-outline" }} />
-                <MineButton person={{ name: "我的收藏", source: "star-outline" }} />
+                <MineButton person={{ name: "我的评论", source: 'comment', value: 1 }} />
+                <MineButton person={{ name: "我的消息", source: "chatbubble-ellipses-outline", value: 1 }} />
+                <MineButton person={{ name: "修改密码", source: "document-text-outline", value: 1 }} />
+                <MineButton person={{ name: "退出登录", source: "star-outline", value: 1 }} />
             </View>
 
-            <View>
-                <View>
-                    <Text>常用功能</Text>
-                </View>
-                {/* <FlatList
 
-                /> */}
-            </View>
-            <View>
-                {/* <Text>UserInfoScreen</Text> */}
-                <Button
+            {/* < View >
+                < Button
                     title="Go to Details"
-                    onPress={() => navigation.navigate('Details')}
+                    onPress={() => navigation.navigate('Details')
+                    }
                 />
-            </View>
+            </View > */}
         </View>
     );
 }
 export default UserInfoScreen
 
 const styles = StyleSheet.create({
-    total: {
+    // total: {
 
-    },
+    // },
     top: {
         flexDirection: 'row',
+        // backgroundColor: 'black',
+        height: Dimensions.get('screen').height / 10,
+        marginTop: 10,
+        marginLeft: 10,
     },
-    infoDisplays: {
-        flexDirection: 'row',
+    headDisplay: {
+        width: Dimensions.get('screen').width / 5,
+        // flexDirection: 'column',
+        justifyContent: 'space-around',
     },
+    head: {
+        height: 70,
+        width: 70,
+        borderRadius: 50,
+
+    },
+    selfInfo: {
+        width: Dimensions.get('screen').width / 2,
+        marginTop: 20,
+        // backgroundColor: 'black',
+    },
+    nameInner: {
+        fontSize: 20,
+        fontWeight: 'bold',
+    },
+    ITIntro: {
+        marginTop: 3,
+        marginLeft: 1,
+    },
+    editInfo: {
+        width: Dimensions.get('screen').width / 4,
+        justifyContent: 'space-around',
+    },
+    // editButton: {
+    //     color: "#841584",
+    //     // backgroundColor: 'black',
+    // },
+    // infoDisplays: {
+    //     flexDirection: 'row',
+    // },
     mineButtons: {
-        flexDirection: 'row',
+        flexDirection: 'column',
+        marginTop: 20,
     },
-    ioni: {
-        width: 30,
-        height: 30
+    selfFunc: {
+        flexDirection: 'row',
+        height: 70,
+        // borderTopWidth: 0.5,
+        // borderBottomWidth: 0.5,
+        borderColor: 'black',
+
+    },
+    funcImg: {
+        width: 40,
+        height: 40,
+        marginLeft: 20,
+        marginTop: 10
+    },
+    funcName: {
+        marginLeft: 20,
+        paddingTop: 20,
+        fontWeight: 'bold',
+        // textAlign: 70,
     }
+    // ioni: {
+    //     width: 30,
+    //     height: 30
+    // }
 })
