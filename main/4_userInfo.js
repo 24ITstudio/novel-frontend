@@ -13,35 +13,26 @@ import { ITLogo } from "../asserts/IT.jpg";
 //     );
 // };
 
-function MineButton({ person }) {
-    // const imgName = person.source;
-    // console.log(imgName);
-    // const souc = '../asserts/' + imgName + '.png';
-    switch (person.value) {
-        case 1:
-            this.souc = '../asserts/formation.png'
-            break;
+// function MineButton({ person }) {
+//     // const imgName = person.source;
+//     // console.log(imgName);
+//     // const souc = '../asserts/' + imgName + '.png';
+//     return (
+//         <TouchableOpacity style={[styles.selfFunc]}>
 
-        default:
-            this.souc = '../asserts/formation.png'
-            break;
-    }
-    return (
-        <TouchableOpacity style={[styles.selfFunc]}>
+//             <Image
+//                 // source={{ uri: souc }}
+//                 source={require('../asserts/formation.png')}
+//                 // source={require(person.source)}
+//                 // source={require('@expo/snack-static/react-native-logo.png')}
+//                 style={[styles.funcImg]}
+//             />
+//             {/* <Ionicons name={person.source} style={[styles.ioni]} /> */}
+//             <Text style={[styles.funcName]}>{person.name}</Text>
+//         </TouchableOpacity>
 
-            <Image
-                // source={{ uri: souc }}
-                source={require('../asserts/formation.png')}
-                // source={require(person.source)}
-                // source={require('@expo/snack-static/react-native-logo.png')}
-                style={[styles.funcImg]}
-            />
-            {/* <Ionicons name={person.source} style={[styles.ioni]} /> */}
-            <Text style={[styles.funcName]}>{person.name}</Text>
-        </TouchableOpacity>
-
-    );
-};
+//     );
+// };
 
 function UserInfoScreen({ navigation }) {
     return (
@@ -80,10 +71,38 @@ function UserInfoScreen({ navigation }) {
             </View> */}
 
             <View style={[styles.mineButtons]}>
-                <MineButton person={{ name: "我的评论", source: 'comment', value: 1 }} />
+                <TouchableOpacity style={[styles.selfFunc]}>
+                    <Image
+                        source={require('../asserts/comment.png')}
+                        style={[styles.funcImg]}
+                    />
+                    <Text style={[styles.funcName]}>我的评论</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={[styles.selfFunc]}>
+                    <Image
+                        source={require('../asserts/formation.png')}
+                        style={[styles.funcImg]}
+                    />
+                    <Text style={[styles.funcName]}>我的消息</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={[styles.selfFunc]}>
+                    <Image
+                        source={require('../asserts/password.png')}
+                        style={[styles.funcImg]}
+                    />
+                    <Text style={[styles.funcName]}>修改密码</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={[styles.selfFunc]}>
+                    <Image
+                        source={require('../asserts/logout.png')}
+                        style={[styles.funcImg]}
+                    />
+                    <Text style={[styles.funcName]}>退出登录</Text>
+                </TouchableOpacity>
+                {/* <MineButton person={{ name: "我的评论", source: 'comment', value: 1 }} />
                 <MineButton person={{ name: "我的消息", source: "chatbubble-ellipses-outline", value: 1 }} />
                 <MineButton person={{ name: "修改密码", source: "document-text-outline", value: 1 }} />
-                <MineButton person={{ name: "退出登录", source: "star-outline", value: 1 }} />
+                <MineButton person={{ name: "退出登录", source: "star-outline", value: 1 }} /> */}
             </View>
 
 
@@ -148,6 +167,7 @@ const styles = StyleSheet.create({
     mineButtons: {
         flexDirection: 'column',
         marginTop: 20,
+        marginLeft: 5
     },
     selfFunc: {
         flexDirection: 'row',
@@ -158,10 +178,10 @@ const styles = StyleSheet.create({
 
     },
     funcImg: {
-        width: 40,
-        height: 40,
+        width: 30,
+        height: 30,
         marginLeft: 20,
-        marginTop: 10
+        marginTop: 15
     },
     funcName: {
         marginLeft: 20,
@@ -169,8 +189,4 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         // textAlign: 70,
     }
-    // ioni: {
-    //     width: 30,
-    //     height: 30
-    // }
 })

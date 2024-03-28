@@ -10,7 +10,7 @@ function HomeScreen({ navigation }) {
         <View>
             <Text>HomeScreen</Text>
             <Button
-                title="Go to Details"
+                title="点击阅读"
                 onPress={() => { navigation.navigate('Details') }}
             />
         </View>

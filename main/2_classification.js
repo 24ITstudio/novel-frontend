@@ -6,7 +6,7 @@ function ClassificationScreen({ navigation }) {
         <View>
             <Text>ClassificationScreen</Text>
             <Button
-                title="Go to Details"
+                title="点击阅读"
                 onPress={() => navigation.navigate('Details')}
             />
         </View>
