@@ -18,15 +18,15 @@ export default class BookrakScreen extends Component {
         const { userID } = 1;
 
         const url_1 = `http://124.70.57.215:8000/user/${userID}`;
-        const url_2 = `http://124.70.57.215:8000/novel/${userFavorID}`
+
         fetch(url_1)
             .then((response) => response.json())
             .then((json) => {
                 this.setState({ userFavorID: json.favors });
             })
             .catch((error) => console.error(error));
-
         const { userFavorID } = this.state;
+        const url_2 = `http://124.70.57.215:8000/novel/${userFavorID}`
         fetch(url_2)
             .then((response) => response.json())
             .then((json) => {
