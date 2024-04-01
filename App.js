@@ -8,10 +8,13 @@ import ClassificationScreen from './main/2_classification'
 import BookrakScreen from './main/3_bookrak'
 import UserInfoScreen from "./main/4_userInfo";
 import DetailsScreen from "./main/5_details";
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import { createStackNavigator } from '@react-navigation/stack';
+import { StackNavigator } from 'react-navigation';
+// import Ionicons from 'react-native-vector-icons/Ionicons'
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+
 
 function HomeTabs() {
   return (
@@ -35,14 +38,46 @@ function App() {
   );
 }
 
+// const AppNavigator = StackNavigator({
+//   Login: {
+//     screen: Login,
+//     navigationOptions:{
+//       headerTitle: '登录'
+//     }
+//   },
+//   Main: {
+//     screen: Login,
+//     navigationOptions: {
+//       headerTitle: '登录'
+//     }
+//   },
+//   Login: {
+//     screen: Login,
+//     navigationOptions: {
+//       headerTitle: '登录'
+//     }
+//   },
+// });
+
+// class App extends Component {
+//   render(){
+//     return(
+//       <View style={[styles.container]}>
+//         <AppInner />
+//       </View>
+//     )
+//   }
+// }
+
+
 export default App;
 
 
 
 
 const styles = StyleSheet.create({
-  ioni: {
-    width: 30,
-    height: 30
-  }
+  // ioni: {
+  //   width: 30,
+  //   height: 30
+  // }
 })

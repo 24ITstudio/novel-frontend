@@ -1,7 +1,7 @@
 import { TransitionIOSSpec } from '@react-navigation/stack/lib/typescript/src/TransitionConfigs/TransitionSpecs';
 import React, { Component } from 'react';
-import { TouchableOpacity, View, Text, Button, StyleSheet, Image, Dimensions } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
+import { TouchableOpacity, View, Text, Button, StyleSheet, Image, Dimensions, FlatList } from 'react-native';
+// import { FlatList } from 'react-native-gesture-handler';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { ITLogo } from "../asserts/IT.jpg";
 // function InfoDisplay({ info }) {
