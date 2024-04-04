@@ -41,29 +41,26 @@ function App() {
 // const AppNavigator = StackNavigator({
 //   Login: {
 //     screen: Login,
-//     navigationOptions:{
+//     navigationOptions: {
 //       headerTitle: '登录'
 //     }
 //   },
 //   Main: {
-//     screen: Login,
-//     navigationOptions: {
-//       headerTitle: '登录'
-//     }
+//     screen: AppInner
 //   },
-//   Login: {
-//     screen: Login,
+//   Register: {
+//     screen: Register,
 //     navigationOptions: {
-//       headerTitle: '登录'
+//       headerTitle: '注册'
 //     }
 //   },
 // });
 
 // class App extends Component {
-//   render(){
-//     return(
+//   render() {
+//     return (
 //       <View style={[styles.container]}>
-//         <AppInner />
+//         <AppNavigator />
 //       </View>
 //     )
 //   }

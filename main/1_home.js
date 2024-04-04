@@ -21,6 +21,7 @@ export default class HomeScreen extends Component {
             .then((response) => response.json())
             .then((json) => {
                 this.setState({ data: json })
+                // console.log(this.state.data)
             })
             .catch((error) => console.error(error))
             .finally(() => {
@@ -79,7 +80,7 @@ export default class HomeScreen extends Component {
                             </TouchableOpacity>
                         )}
                         ItemSeparatorComponent={() => {
-                            return <View style={[{ borderBottomWidth: 2 }, { borderBottomColor: 'blue' }, { marginVertical: 1 }]}></View>
+                            return <View style={[{ borderBottomWidth: 1 }, { borderBottomColor: 'deepblue' }, { marginVertical: 15 }]}></View>
                         }}
                         refreshing={this.state.flag}
                         onRefresh={this.loadData}
