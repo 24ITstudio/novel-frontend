@@ -12,10 +12,17 @@ export default class HomeScreen extends Component {
             id: [],
             isLoading: true,
             flag: false,
+
+            username: '',
+            password: '',
         };
     }
 
     componentDidMount() {
+        const { route, navigation } = this.props;
+        const { username } = route.params;
+        console.log('Username:', username);
+
         const url = `http://124.70.57.215:8000/novel/`
         fetch(url)
             .then((response) => response.json())
@@ -44,8 +51,14 @@ export default class HomeScreen extends Component {
     render() {
         const { data, isLoading } = this.state;
 
+        // const { route } = this.props;
+        // const { username } = route.params;
+        const { username } = this.props.route.params;
+
+
         return (
             <View style={[styles.total]}>
+                <Text>Welcome to Main Screen, {username}!</Text>
                 {isLoading ? <ActivityIndicator /> : (
                     <FlatList
                         style={[styles.bookTotal]}

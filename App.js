@@ -1,24 +1,28 @@
-import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { Component } from 'react';
+import { StackNavigator, TabNavigator } from 'react-navigation';
+import { StyleSheet, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+
 import HomeScreen from './main/1_home';
 import ClassificationScreen from './main/2_classification'
 import BookrakScreen from './main/3_bookrak'
 import UserInfoScreen from "./main/4_userInfo";
 import DetailsScreen from "./main/5_details";
-import { createStackNavigator } from '@react-navigation/stack';
-import { StackNavigator } from 'react-navigation';
-// import Ionicons from 'react-native-vector-icons/Ionicons'
+import LoginScreen from "./main/0_login";
+import PasswordLoginScreen from "./main/0_passwordLogin";
+import RegisterScreen from "./main/0_register";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-
 function HomeTabs() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      initialRouteName='UserInfo'
+    >
       <Tab.Screen name="Home" component={HomeScreen} options={{ title: '首页' }} />
       <Tab.Screen name="Classification" component={ClassificationScreen} options={{ title: '分类' }} />
       <Tab.Screen name="Bookrak" component={BookrakScreen} options={{ title: '书架' }} />
@@ -30,7 +34,12 @@ function HomeTabs() {
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator
+        initialRouteName="PasswordLogin"
+      >
+        <Stack.Screen name="PasswordLogin" component={PasswordLoginScreen} options={{ title: '密码登录' }} />
+        <Stack.Screen name="Login" component={LoginScreen} options={{ title: '登录' }} />
+        <Stack.Screen name="Register" component={RegisterScreen} options={{ title: '注册' }} />
         <Stack.Screen name="IT_novel" component={HomeTabs} />
         <Stack.Screen name="Details" component={DetailsScreen} />
       </Stack.Navigator>
@@ -38,43 +47,4 @@ function App() {
   );
 }
 
-// const AppNavigator = StackNavigator({
-//   Login: {
-//     screen: Login,
-//     navigationOptions: {
-//       headerTitle: '登录'
-//     }
-//   },
-//   Main: {
-//     screen: AppInner
-//   },
-//   Register: {
-//     screen: Register,
-//     navigationOptions: {
-//       headerTitle: '注册'
-//     }
-//   },
-// });
-
-// class App extends Component {
-//   render() {
-//     return (
-//       <View style={[styles.container]}>
-//         <AppNavigator />
-//       </View>
-//     )
-//   }
-// }
-
-
 export default App;
-
-
-
-
-const styles = StyleSheet.create({
-  // ioni: {
-  //   width: 30,
-  //   height: 30
-  // }
-})

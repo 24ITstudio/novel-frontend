@@ -4,119 +4,121 @@ import { TouchableOpacity, View, Text, Button, StyleSheet, Image, Dimensions, Fl
 // import { FlatList } from 'react-native-gesture-handler';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { ITLogo } from "../asserts/IT.jpg";
-// function InfoDisplay({ info }) {
-//     return (
-//         <View>
-//             <Text>{info.num}</Text>
-//             <Text>{info.title}</Text>
-//         </View>
-//     );
-// };
 
-// function MineButton({ person }) {
-//     // const imgName = person.source;
-//     // console.log(imgName);
-//     // const souc = '../asserts/' + imgName + '.png';
-//     return (
-//         <TouchableOpacity style={[styles.selfFunc]}>
+export default class UserInfoScreen extends Component {
+    // function UserInfoScreen({ navigation }) {
+    constructor(props) {
+        super(props);
+        this.state = {
+            id: [],
+            isLoading: true,
+            flag: false,
 
-//             <Image
-//                 // source={{ uri: souc }}
-//                 source={require('../asserts/formation.png')}
-//                 // source={require(person.source)}
-//                 // source={require('@expo/snack-static/react-native-logo.png')}
-//                 style={[styles.funcImg]}
-//             />
-//             {/* <Ionicons name={person.source} style={[styles.ioni]} /> */}
-//             <Text style={[styles.funcName]}>{person.name}</Text>
-//         </TouchableOpacity>
+            username: '',
+            password: '',
+        };
+    }
 
-//     );
-// };
+    componentDidMount = (route, navigation) => {
+        // const { route, navigation } = this.props;
+        // const { username } = route.params;
+        const { username } = this.props.route.params;
 
-function UserInfoScreen({ navigation }) {
-    return (
-        <View >
-            {/* <View style={[styles.top]}> */}
-            <View style={[styles.top]}>
-                <View style={[styles.headDisplay]}>
-                    {/* <Text>头像</Text> */}
-                    <Image
-                        source={require('../asserts/IT.jpg')}
-                        style={[styles.head]}
-                    />
-                </View>
-                <View style={[styles.selfInfo]}>
-                    <View style={[styles.nameDisplay]}>
-                        <Text style={[styles.nameInner]}>名称</Text>
+        // const username = route && route.params ? route.params.username : "无";
+        // console.log('Username:', username);
+    }
+
+    render = (route, navigation) => {
+        // const { route } = this.props;
+        // const { username } = route.params;
+        // const { username } = this.props.route.params;
+        const { username } = this.state;
+
+        // const username = route && route.params ? route.params.username : "无";
+
+        return (
+            <View >
+                {/* <View style={[styles.top]}> */}
+                <View style={[styles.top]}>
+                    <View style={[styles.headDisplay]}>
+                        {/* <Text>头像</Text> */}
+                        <Image
+                            source={require('../asserts/IT.jpg')}
+                            style={[styles.head]}
+                        />
                     </View>
-                    {/* <View> */}
-                    <Text style={[styles.ITIntro]}>IT小说，快乐追书~</Text>
-                    {/* </View> */}
+                    <View style={[styles.selfInfo]}>
+                        <View style={[styles.nameDisplay]}>
+                            <Text style={[styles.nameInner]}>{username}</Text>
+                        </View>
+                        {/* <View> */}
+                        <Text style={[styles.ITIntro]}>IT小说，快乐追书~</Text>
+                        {/* </View> */}
+                    </View>
+                    <View style={[styles.editInfo]}>
+                        {/* <Text>编辑资料 ＞</Text> */}
+                        <Button
+                            title='编辑资料 ＞'
+                            color='#0e53ff'
+                        />
+                    </View>
                 </View>
-                <View style={[styles.editInfo]}>
-                    {/* <Text>编辑资料 ＞</Text> */}
-                    <Button
-                        title='编辑资料 ＞'
-                        color='#0e53ff'
-                    />
-                </View>
-            </View>
-            {/* </View> */}
+                {/* </View> */}
 
-            {/* <View style={[styles.infoDisplays]}>
+                {/* <View style={[styles.infoDisplays]}>
                 <InfoDisplay info={{ title: "关注", num: 0 }} />
                 <InfoDisplay info={{ title: "粉丝", num: 1 }} />
                 <InfoDisplay info={{ title: "获赞", num: 2 }} />
             </View> */}
 
-            <View style={[styles.mineButtons]}>
-                <TouchableOpacity style={[styles.selfFunc]}>
-                    <Image
-                        source={require('../asserts/comment.png')}
-                        style={[styles.funcImg]}
-                    />
-                    <Text style={[styles.funcName]}>我的评论</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={[styles.selfFunc]}>
-                    <Image
-                        source={require('../asserts/formation.png')}
-                        style={[styles.funcImg]}
-                    />
-                    <Text style={[styles.funcName]}>我的消息</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={[styles.selfFunc]}>
-                    <Image
-                        source={require('../asserts/password.png')}
-                        style={[styles.funcImg]}
-                    />
-                    <Text style={[styles.funcName]}>修改密码</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={[styles.selfFunc]}>
-                    <Image
-                        source={require('../asserts/logout.png')}
-                        style={[styles.funcImg]}
-                    />
-                    <Text style={[styles.funcName]}>退出登录</Text>
-                </TouchableOpacity>
-                {/* <MineButton person={{ name: "我的评论", source: 'comment', value: 1 }} />
+                <View style={[styles.mineButtons]}>
+                    <TouchableOpacity style={[styles.selfFunc]}>
+                        <Image
+                            source={require('../asserts/comment.png')}
+                            style={[styles.funcImg]}
+                        />
+                        <Text style={[styles.funcName]}>我的评论</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.selfFunc]}>
+                        <Image
+                            source={require('../asserts/formation.png')}
+                            style={[styles.funcImg]}
+                        />
+                        <Text style={[styles.funcName]}>我的消息</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.selfFunc]}>
+                        <Image
+                            source={require('../asserts/password.png')}
+                            style={[styles.funcImg]}
+                        />
+                        <Text style={[styles.funcName]}>修改密码</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.selfFunc]}>
+                        <Image
+                            source={require('../asserts/logout.png')}
+                            style={[styles.funcImg]}
+                        />
+                        <Text style={[styles.funcName]}>退出登录</Text>
+                    </TouchableOpacity>
+                    {/* <MineButton person={{ name: "我的评论", source: 'comment', value: 1 }} />
                 <MineButton person={{ name: "我的消息", source: "chatbubble-ellipses-outline", value: 1 }} />
                 <MineButton person={{ name: "修改密码", source: "document-text-outline", value: 1 }} />
                 <MineButton person={{ name: "退出登录", source: "star-outline", value: 1 }} /> */}
-            </View>
+                </View>
 
 
-            {/* < View >
+                {/* < View >
                 < Button
                     title="Go to Details"
                     onPress={() => navigation.navigate('Details')
                     }
                 />
             </View > */}
-        </View>
-    );
+            </View>
+        )
+    };
 }
-export default UserInfoScreen
+// export default UserInfoScreen
 
 const styles = StyleSheet.create({
     // total: {
@@ -190,3 +192,33 @@ const styles = StyleSheet.create({
         // textAlign: 70,
     }
 })
+
+// function InfoDisplay({ info }) {
+//     return (
+//         <View>
+//             <Text>{info.num}</Text>
+//             <Text>{info.title}</Text>
+//         </View>
+//     );
+// };
+
+// function MineButton({ person }) {
+//     // const imgName = person.source;
+//     // console.log(imgName);
+//     // const souc = '../asserts/' + imgName + '.png';
+//     return (
+//         <TouchableOpacity style={[styles.selfFunc]}>
+
+//             <Image
+//                 // source={{ uri: souc }}
+//                 source={require('../asserts/formation.png')}
+//                 // source={require(person.source)}
+//                 // source={require('@expo/snack-static/react-native-logo.png')}
+//                 style={[styles.funcImg]}
+//             />
+//             {/* <Ionicons name={person.source} style={[styles.ioni]} /> */}
+//             <Text style={[styles.funcName]}>{person.name}</Text>
+//         </TouchableOpacity>
+
+//     );
+// };

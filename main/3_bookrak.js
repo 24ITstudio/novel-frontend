@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { TouchableOpacity, View, Text, Button, ActivityIndicator, StyleSheet, FlatList, ScrollView, Image, Dimensions } from 'react-native';
-// import {  } from 'react-native-gesture-handler';
 
 // function BookrakScreen({ navigation }) {
 export default class BookrakScreen extends Component {
