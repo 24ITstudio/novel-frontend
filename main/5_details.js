@@ -1,19 +1,6 @@
+//阅读器没写
 import React, { Component } from 'react';
 import { Text, TouchableOpacity, View, Button } from 'react-native';
-
-// function DetailsScreen({ navigation, route }) {
-//     const { username } = route.params;
-//     return (
-//         <View>
-//             <Text>DetailsScreen {username}</Text>
-//             <Button
-//                 title="Go to Home"
-//                 onPress={() => navigation.navigate('Home')}
-//             />
-//         </View>
-//     )
-// };
-// export default DetailsScreen
 
 export default class DetailsScreen extends Component {
     constructor(props) {
@@ -35,8 +22,6 @@ export default class DetailsScreen extends Component {
     }
 
     render() {
-        // const { route } = this.props;
-        // const { username } = route.params;
         const { username } = this.props.route.params;
         return (
             <View>

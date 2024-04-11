@@ -1,4 +1,5 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert } from 'react-native'
+// 样式同PasswordLogin，样式还没写
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, Dimensions } from 'react-native'
 import React, { Component } from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 export default class RegisterScreen extends Component {
@@ -81,10 +82,11 @@ export default class RegisterScreen extends Component {
         const { invisible1, invisible2, send } = this.state;
         return (
             <View style={styles.container}>
+
                 <View style={[styles.headline]}>
-                    <View style={[styles.headView]}>
-                        <Text style={[styles.head]}>
-                            海大生活互助
+                    <View style={[styles.title]}>
+                        <Text style={[styles.titleText]}>
+                            IT_novel 注册
                         </Text>
                     </View>
                     <View style={[styles.topLine]}>
@@ -194,16 +196,25 @@ export default class RegisterScreen extends Component {
                         </View>
                     </TouchableOpacity>
                 </View>
+
             </View>
         )
     }
 }
 
 const styles = StyleSheet.create({
-    //     container: {
-    //         flex: 1,
-    //         backgroundColor: 'rgb(255,223,105)'
-    //     },
+    container: {
+        flex: 1,
+        // backgroundColor: 'rgb(255,223,105)'
+    },
+    title: {
+        height: Dimensions.get('screen').height / 10,
+        backgroundColor: 'blue',
+    },
+    titleText: {
+        color: 'white',
+        fontSize: 30,
+    },
     //     mailInput: {
     //         color: 'rgb(51,51,51)',
     //         fontFamily: global.font_family,

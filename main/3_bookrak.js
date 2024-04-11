@@ -1,3 +1,4 @@
+// 缺少功能，点击后将小说个性name传入Details
 import React, { Component } from 'react';
 import { TouchableOpacity, View, Text, Button, ActivityIndicator, StyleSheet, FlatList, ScrollView, Image, Dimensions } from 'react-native';
 
@@ -6,13 +7,7 @@ export default class BookrakScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            // data: [],
-            // userData: [],
-            // userFavorID: [],
-            // userNovelName: [],
-            // userNovelDesc: [],
-
-            isLoading: true,
+            isLoading: false,
 
             username: '',
             password: '',
@@ -173,40 +168,47 @@ export default class BookrakScreen extends Component {
 
     render() {
         const { favorsDatas, isLoading } = this.state;
+        const { route, navigation } = this.props;
+        const { username } = route.params;
+        const DetailsGo = () => {
+            // const { username, password } = this.state;
+            navigation.navigate('Details', { username });
+        }
         if (favorsDatas.length) {
             // if (1) {
             return (
                 <View style={[styles.favorRak]}>
-                    <FlatList
-                        data={this.state.favorsDatas}
-                        keyExtractor={item => item.id.toString()}
-                        // data={data}
-                        // keyExtractor={({ userFavorID }, index) => id}
-                        // keyExtractor={id => userNovelID}
-                        renderItem={({ item }) => (
-                            <View style={[styles.favorInner]}>
-                                <Image
-                                    style={[styles.favorCover]}
-                                    source={require('../asserts/cover_0.png')}
-                                />
-                                <View style={[styles.favorIntro]}>
-                                    <Text style={[styles.favorName]}>{item.name}</Text>
-                                    {/* <Text style={[styles.favorDesc]}>{this.state.userNovelDesc}</Text> */}
-                                    <Text style={[styles.favorDesc]}>{item.desc}</Text>
+                    {isLoading ? <ActivityIndicator /> : (
+                        <FlatList
+                            data={this.state.favorsDatas}
+                            keyExtractor={item => item.id.toString()}
+                            renderItem={({ item }) => (
+                                <TouchableOpacity onPress={DetailsGo}>
+                                    <View style={[styles.favorInner]}>
+                                        <Image
+                                            style={[styles.favorCover]}
+                                            source={require('../asserts/cover_0.png')}
+                                        />
+                                        <View style={[styles.favorIntro]}>
+                                            <Text style={[styles.favorName]}>{item.name}</Text>
+                                            {/* <Text style={[styles.favorDesc]}>{this.state.userNovelDesc}</Text> */}
+                                            <Text style={[styles.favorDesc]}>{item.desc}</Text>
+                                        </View>
+                                        <Text style={[styles.favorClick]}>继续阅读 ＞</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            )}
+                            ItemSeparatorComponent={() => {
+                                return <View style={[{ borderBottomWidth: 1 }, { borderBottomColor: 'deepblue' }, { marginVertical: 15 }]}></View>
+                            }}
+                            onEndReachedThreshold={0}
+                            ListEmptyComponent={() => (
+                                <View>
+                                    <Text>No data available</Text>
                                 </View>
-                                <Text style={[styles.favorClick]}>继续阅读 ＞</Text>
-                            </View>
-                        )}
-                        ItemSeparatorComponent={() => {
-                            return <View style={[{ borderBottomWidth: 1 }, { borderBottomColor: 'deepblue' }, { marginVertical: 15 }]}></View>
-                        }}
-                        onEndReachedThreshold={0}
-                        ListEmptyComponent={() => (
-                            <View>
-                                <Text>No data available</Text>
-                            </View>
-                        )}
-                    />
+                            )}
+                        />
+                    )}
                 </View>
             );
         }

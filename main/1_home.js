@@ -1,3 +1,4 @@
+// 缺少功能，点击后将小说个性name传入Details
 import React, { Component } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { TouchableOpacity, View, Text, Button, ActivityIndicator, Image, StyleSheet, FlatList, ScrollView, Dimensions } from 'react-native';
@@ -26,7 +27,6 @@ export default class HomeScreen extends Component {
         const url = `http://124.70.57.215:8000/novel/`
         fetch(url)
             .then((response) => response.json())
-            // .then(result => console.log(result)) // 输出响应结果到控制台
             .then((json) => {
                 this.setState({ data: json }) //错
                 // console.log(this.state.data)
@@ -53,9 +53,6 @@ export default class HomeScreen extends Component {
         const { data, isLoading } = this.state;
         const { route, navigation } = this.props;
         const { username } = route.params;
-        // const { route } = this.props;
-        // const { username } = route.params;
-        // const { username } = this.props.route.params;
         // console.log('1_Home_Username2:', username);
 
         const DetailsGo = () => {
