@@ -21,13 +21,14 @@ export default class HomeScreen extends Component {
     componentDidMount() {
         const { route, navigation } = this.props;
         const { username } = route.params;
-        console.log('Username:', username);
+        // console.log('1_Home_Username:', username);
 
         const url = `http://124.70.57.215:8000/novel/`
         fetch(url)
             .then((response) => response.json())
+            // .then(result => console.log(result)) // 输出响应结果到控制台
             .then((json) => {
-                this.setState({ data: json })
+                this.setState({ data: json }) //错
                 // console.log(this.state.data)
             })
             .catch((error) => console.error(error))
@@ -50,15 +51,22 @@ export default class HomeScreen extends Component {
 
     render() {
         const { data, isLoading } = this.state;
-
+        const { route, navigation } = this.props;
+        const { username } = route.params;
         // const { route } = this.props;
         // const { username } = route.params;
-        const { username } = this.props.route.params;
+        // const { username } = this.props.route.params;
+        // console.log('1_Home_Username2:', username);
+
+        const DetailsGo = () => {
+            // const { username, password } = this.state;
+            navigation.navigate('Details', { username });
+        }
 
 
         return (
             <View style={[styles.total]}>
-                <Text>Welcome to Main Screen, {username}!</Text>
+                {/* <Text>Welcome to Main Screen, {username}!</Text> */}
                 {isLoading ? <ActivityIndicator /> : (
                     <FlatList
                         style={[styles.bookTotal]}
@@ -66,12 +74,17 @@ export default class HomeScreen extends Component {
                         keyExtractor={({ id }, index) => id}
                         renderItem={({ item }) => (
                             <TouchableOpacity
-                                onPress={() => this.props.navigation.navigete('Details', {
-                                    url: item.url,
-                                    name: item.name,
-                                    id: item.id,
-                                    desc: item.desc
-                                })}
+                                onPress={DetailsGo}
+                            // onPress={() => {
+                            // this.props.navigation.navigete('Details'
+                            //     // {
+                            //     // url: item.url,
+                            //     // name: item.name,
+                            //     // id: item.id,
+                            //     // desc: item.desc
+                            //     // }
+                            // )
+                            // }}
                             >
                                 <View style={[styles.bookInner]}>
                                     <View style={[styles.bookInner_1]}>

@@ -13,18 +13,75 @@ export default class PasswordLoginScreen extends Component {
 
             username: '',
             password: '',
+            token: [],
 
             refresh: '',
             access: ''
         }
     }
-    handleLogin = async () => {
+    handleLogin = () => {
         const { username, password } = this.state;
-        if (username === 'u' && password === 'u') {
-            this.props.navigation.navigate('IT_novel', { username, password });
-        } else {
-            alert('登录失败，请检查账号密码');
-        }
+        console.log('handleLogin:', username, password);
+
+        // if (username === 'u1' && password === 'u1') {
+        //     this.props.navigation.navigate('IT_novel', { username, password });
+        // } else {
+        //     alert('登录失败，请检查账号密码');
+        // }
+
+        var myHeaders = new Headers();
+        myHeaders.append("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
+        myHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify({
+            "username": this.state.username,
+            "password": this.state.password,
+
+        });
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        fetch("http://124.70.57.215:8000/token-auth/", requestOptions)
+            // .then(response => response.json())
+            // .then(response => response.text())
+            // .then(result => console.log(result))
+            .then(response => {
+                if (response.status === 200) {
+                    this.props.navigation.navigate('IT_novel', { username, password });
+                    // console.log(response.status);
+                    // return response.json();
+                } else {
+                    // console.log(response.status);
+                    Alert.alert('用户账号密码输入错误！');
+                    throw new Error('Failed to login');
+                }
+            })
+            // .then(data => {
+            //     try {
+            //         if (data && data.token) {
+            //             console.log('token:', data.token);
+            //             // const { token } = data.token;
+            //             this.setState({ token: data.token });
+            //             console.log('state_token:', this.state.token);
+            //         } else {
+            //             console.error('Token not found in response data');
+            //         }
+            //     } catch (error) {
+            //         console.error('Error while accessing token property:', error);
+            //     }
+
+            // })
+            // .then(result => console.log(result))
+            .catch(error => console.log('0_navigation_Error', error));
+
+
+
+        //发送请求判断是否登陆成功
         // var requestOptions = {
         //     method: 'POST',
         //     headers: {
@@ -76,8 +133,8 @@ export default class PasswordLoginScreen extends Component {
                             style={[styles.mailInput]}
                             placeholder='用户名'
                             value={username}
-                            // onChangeText={(username) => { this.setState({ username }) }}
-                            onChangeText={text => this.setState({ username: text })}
+                            onChangeText={(username) => { this.setState({ username }) }}
+                        // onChangeText={text => this.setState({ username: text })}
                         />
                     </View>
                     <View style={[styles.firstLine]}>
@@ -89,8 +146,8 @@ export default class PasswordLoginScreen extends Component {
                                 value={password}
                                 style={[styles.codeInput]}
                                 secureTextEntry={this.state.invisible}
-                                // onChangeText={(password) => { this.setState({ password }) }}
-                                onChangeText={text => this.setState({ password: text })}
+                                onChangeText={(password) => { this.setState({ password }) }}
+                            // onChangeText={text => this.setState({ password: text })}
                             />
                         </View>
                         <TouchableOpacity

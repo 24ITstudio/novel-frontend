@@ -19,20 +19,20 @@ export default class UserInfoScreen extends Component {
         };
     }
 
-    componentDidMount = (route, navigation) => {
-        // const { route, navigation } = this.props;
-        // const { username } = route.params;
-        const { username } = this.props.route.params;
-
-        // const username = route && route.params ? route.params.username : "无";
+    componentDidMount() {
+        const { route, navigation } = this.props;
+        const { username } = route.params;
         // console.log('Username:', username);
     }
 
-    render = (route, navigation) => {
+    render = () => {
         // const { route } = this.props;
         // const { username } = route.params;
         // const { username } = this.props.route.params;
-        const { username } = this.state;
+        // const { username } = this.state;
+        const { route, navigation } = this.props;
+        const { username } = route.params;
+        console.log('4_userInfo_Username:', username);
 
         // const username = route && route.params ? route.params.username : "无";
 
@@ -148,8 +148,10 @@ const styles = StyleSheet.create({
         // backgroundColor: 'black',
     },
     nameInner: {
-        fontSize: 20,
+        // backgroundColor: 'black',
+        fontSize: 25,
         fontWeight: 'bold',
+        // color: 'while',
     },
     ITIntro: {
         marginTop: 3,
