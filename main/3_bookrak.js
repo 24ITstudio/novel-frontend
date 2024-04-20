@@ -170,9 +170,17 @@ export default class BookrakScreen extends Component {
         const { favorsDatas, isLoading } = this.state;
         const { route, navigation } = this.props;
         const { username } = route.params;
-        const DetailsGo = () => {
-            // const { username, password } = this.state;
-            navigation.navigate('Details', { username });
+        // const DetailsGo = () => {
+        //     // const { username, password } = this.state;
+        //     navigation.navigate('Details', { username });
+        // }
+        const goToDetails = (id,max_chapter,name) => {
+            this.props.navigation.navigate('Details',{
+                username:this.props.route.params.username,
+                id:id,
+                max_chapter:max_chapter,
+                name:name  
+            });
         }
         if (favorsDatas.length) {
             // if (1) {
@@ -183,7 +191,7 @@ export default class BookrakScreen extends Component {
                             data={this.state.favorsDatas}
                             keyExtractor={item => item.id.toString()}
                             renderItem={({ item }) => (
-                                <TouchableOpacity onPress={DetailsGo}>
+                                <TouchableOpacity onPress={()=>goToDetails(item.id,item.max_chapter,item.name)}>
                                     <View style={[styles.favorInner]}>
                                         <Image
                                             style={[styles.favorCover]}
