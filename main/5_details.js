@@ -18,7 +18,7 @@ export default class DetailsScreen extends Component {
             password: '',
             chapterData: [],
             currentChapter: 1,
-            chapterContent: '',
+            chapterContent: {},
         };
     }
     async componentDidMount() {
@@ -52,7 +52,7 @@ export default class DetailsScreen extends Component {
             const response = await axios.get(url);
             this.setState({ chapterContent: response.data });
 
-            // console.log("chapterContent_1:", this.chapterContent);
+            //console.log("chapterContent_1:", this.chapterContent);
 
         } catch (error) {
             // if (error.savedChapter.status === 404) {
@@ -119,7 +119,7 @@ export default class DetailsScreen extends Component {
 
                 {/* <Text>Current Chapter: {currentChapter}</Text> */}
 
-                <Text style={[styles.content]}>章节内容：{this.chapterContent}</Text>
+                <Text style={[styles.content]}>章节内容：{chapterContent.content}</Text>
                 <View style={[styles.allBut]}>
                     <View style={[styles.preBut]}>
                         <Button title="上一章" onPress={this.handlePrevChapter} />

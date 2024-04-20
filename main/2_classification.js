@@ -36,10 +36,12 @@ export default class ClassificationScreen extends Component {
     }
   render() {
     const {isloading} = this.state;
-    const goToDetails = (id) => {
+    const goToDetails = (id,max_chapter,name) => {
         this.props.navigation.navigate('Details',{
             username:this.props.route.params.username,
-            id:id
+            id:id,
+            max_chapter:max_chapter,
+            name:name  
         });
     }
     return (
@@ -51,7 +53,7 @@ export default class ClassificationScreen extends Component {
                         ({item})=>(
                             <TouchableOpacity
                                 onPress={()=>{
-                                    goToDetails(item.id);
+                                    goToDetails(item.id,item.max_chapter,item.name);
                                     }}>
                                 <View style={[styles.classInner]}>
                                     <Image
