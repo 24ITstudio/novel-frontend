@@ -1,8 +1,6 @@
-// 缺少功能，点击后将小说个性name传入Details
 import React, { Component } from 'react';
 import { TouchableOpacity, View, Text, Button, ActivityIndicator, StyleSheet, FlatList, ScrollView, Image, Dimensions } from 'react-native';
 
-// function BookrakScreen({ navigation }) {
 export default class BookrakScreen extends Component {
     constructor(props) {
         super(props);
@@ -174,12 +172,12 @@ export default class BookrakScreen extends Component {
         //     // const { username, password } = this.state;
         //     navigation.navigate('Details', { username });
         // }
-        const goToDetails = (id,max_chapter,name) => {
-            this.props.navigation.navigate('Details',{
-                username:this.props.route.params.username,
-                id:id,
-                max_chapter:max_chapter,
-                name:name  
+        const goToDetails = (id, max_chapter, name) => {
+            this.props.navigation.navigate('Details', {
+                username: this.props.route.params.username,
+                id: id,
+                max_chapter: max_chapter,
+                name: name
             });
         }
         if (favorsDatas.length) {
@@ -191,7 +189,7 @@ export default class BookrakScreen extends Component {
                             data={this.state.favorsDatas}
                             keyExtractor={item => item.id.toString()}
                             renderItem={({ item }) => (
-                                <TouchableOpacity onPress={()=>goToDetails(item.id,item.max_chapter,item.name)}>
+                                <TouchableOpacity onPress={() => goToDetails(item.id, item.max_chapter, item.name)}>
                                     <View style={[styles.favorInner]}>
                                         <Image
                                             style={[styles.favorCover]}

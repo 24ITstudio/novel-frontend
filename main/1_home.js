@@ -59,12 +59,12 @@ export default class HomeScreen extends Component {
         //     // const { username, password } = this.state;
         //     navigation.navigate('Details', { username });
         // }
-        const goToDetails = (id,max_chapter,name) => {
-            this.props.navigation.navigate('Details',{
-                username:this.props.route.params.username,
-                id:id,
-                max_chapter:max_chapter,
-                name:name  
+        const goToDetails = (id, max_chapter, name) => {
+            this.props.navigation.navigate('Details', {
+                username: this.props.route.params.username,
+                id: id,
+                max_chapter: max_chapter,
+                name: name
             });
         }
 
@@ -79,7 +79,7 @@ export default class HomeScreen extends Component {
                         keyExtractor={({ id }, index) => id}
                         renderItem={({ item }) => (
                             <TouchableOpacity
-                                onPress={() =>goToDetails(item.id,item.max_chapter,item.name)}
+                                onPress={() => goToDetails(item.id, item.max_chapter, item.name)}
                             // onPress={() => {
                             // this.props.navigation.navigete('Details'
                             //     // {

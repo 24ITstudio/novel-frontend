@@ -1,4 +1,3 @@
-//阅读器没写
 import React, { Component } from 'react';
 import { Text, TouchableOpacity, View, Button, Dimensions, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';

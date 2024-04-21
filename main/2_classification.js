@@ -1,4 +1,4 @@
-// 从这无法将示例数据传过去（先解决home传novelName问题）
+// 多次点击会出问题
 import React, { Component } from 'react';
 import { TouchableOpacity, View, Text, Button, FlatList, StyleSheet, ActivityIndicator, Dimensions, Image } from 'react-native';
 import PasswordLoginScreen from './0_passwordLogin';
@@ -8,105 +8,105 @@ export default class ClassificationScreen extends Component {
         super(props);
         this.state = {
             classifications: [],
-            isloading:true,
-            type:'t1',
-            books:{}
+            isloading: true,
+            type: 't1',
+            books: {}
         }
     }
     getBookByClassification = () => {
-        const {type} = this.state;
+        const { type } = this.state;
         fetch(`http://124.70.57.215:8000/novel-tag?search=${type}`)
-        .then(response => response.json())
-        .then((json)=>{
-            this.setState({books:json})
-        })
-        .finally(this.setState({isloading:false}));
-        
+            .then(response => response.json())
+            .then((json) => {
+                this.setState({ books: json })
+            })
+            .finally(this.setState({ isloading: false }));
+
     }
     componentDidMount() {
         this.getBookByClassification();
         fetch('http://124.70.57.215:8000/novel-tag/')
-        .then(response => response.json())
-        .then((json)=>{
-            this.setState({classifications: json})
-        })
-        .finally(()=>{
-            this.setState({isloading:false})
-        });
+            .then(response => response.json())
+            .then((json) => {
+                this.setState({ classifications: json })
+            })
+            .finally(() => {
+                this.setState({ isloading: false })
+            });
     }
-  render() {
-    const {isloading} = this.state;
-    const goToDetails = (id,max_chapter,name) => {
-        this.props.navigation.navigate('Details',{
-            username:this.props.route.params.username,
-            id:id,
-            max_chapter:max_chapter,
-            name:name  
-        });
-    }
-    return (
-        <View style={{flex:1}}>
-            {isloading ? <ActivityIndicator /> :(
-                <FlatList
-                    data={this.state.books}
-                    renderItem={
-                        ({item})=>(
-                            <TouchableOpacity
-                                onPress={()=>{
-                                    goToDetails(item.id,item.max_chapter,item.name);
+    render() {
+        const { isloading } = this.state;
+        const goToDetails = (id, max_chapter, name) => {
+            this.props.navigation.navigate('Details', {
+                username: this.props.route.params.username,
+                id: id,
+                max_chapter: max_chapter,
+                name: name
+            });
+        }
+        return (
+            <View style={{ flex: 1 }}>
+                {isloading ? <ActivityIndicator /> : (
+                    <FlatList
+                        data={this.state.books}
+                        renderItem={
+                            ({ item }) => (
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        goToDetails(item.id, item.max_chapter, item.name);
                                     }}>
-                                <View style={[styles.classInner]}>
-                                    <Image
-                                        style={[styles.classCover]}
-                                        source={require('../asserts/cover_0.png')}
-                                    />
-                                    <View style={[styles.classIntro]}>
-                                        <Text style={[styles.className]}>{item.name}</Text>
-                                        <Text style={[styles.classDesc]}>{item.desc}</Text>
+                                    <View style={[styles.classInner]}>
+                                        <Image
+                                            style={[styles.classCover]}
+                                            source={require('../asserts/cover_0.png')}
+                                        />
+                                        <View style={[styles.classIntro]}>
+                                            <Text style={[styles.className]}>{item.name}</Text>
+                                            <Text style={[styles.classDesc]}>{item.desc}</Text>
+                                        </View>
+                                        <Text style={[styles.classClick]}>点击阅读</Text>
                                     </View>
-                                    <Text style={[styles.classClick]}>点击阅读</Text>
-                                </View>
-                            </TouchableOpacity>
-                        )
-                    } 
-                    ListHeaderComponent={<FlatList 
-                        horizontal={true}
-                        data={this.state.classifications}
-                        renderItem={({item})=>(
-                            <TouchableOpacity onPress={()=>{
-                                    this.setState({type:item},
-                                    () => {
-                                        this.getBookByClassification();
-                                    })
-                            }}>
-                                <View style={{
-                                    backgroundColor:item == this.state.type ? '#00f0ff':'#fff',
-                                    height:30,
-                                    width:50,
-                                    justifyContent:'center',
-                                    alignItems:'center',
-                                    marginBottom: 20,
+                                </TouchableOpacity>
+                            )
+                        }
+                        ListHeaderComponent={<FlatList
+                            horizontal={true}
+                            data={this.state.classifications}
+                            renderItem={({ item }) => (
+                                <TouchableOpacity onPress={() => {
+                                    this.setState({ type: item },
+                                        () => {
+                                            this.getBookByClassification();
+                                        })
                                 }}>
-                                    <Text style={{fontSize:20,fontWeight:'bold'}}>{item}</Text>
-                                </View>
-                            </TouchableOpacity>
-                        )}
-                    />}
-                />
-            )}
-        </View>
-    )
-  }
+                                    <View style={{
+                                        backgroundColor: item == this.state.type ? '#00f0ff' : '#fff',
+                                        height: 30,
+                                        width: 50,
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        marginBottom: 20,
+                                    }}>
+                                        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{item}</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            )}
+                        />}
+                    />
+                )}
+            </View>
+        )
+    }
 }
 
 const styles = StyleSheet.create({
-    headerList:{
-        flex:1,
-        backgroundColor:'#00f0ff',
-        height:30,
-        width:50,
-        justifyContent:'center',
-        alignItems:'center',
+    headerList: {
+        flex: 1,
+        backgroundColor: '#00f0ff',
+        height: 30,
+        width: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     classRak: {
         marginTop: 20,

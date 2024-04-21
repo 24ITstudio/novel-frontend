@@ -32,7 +32,7 @@ export default class UserInfoScreen extends Component {
         // const { username } = this.state;
         const { route, navigation } = this.props;
         const { username } = route.params;
-        console.log('4_userInfo_Username:', username);
+        // console.log('4_userInfo_Username:', username);
 
         // const username = route && route.params ? route.params.username : "无";
 

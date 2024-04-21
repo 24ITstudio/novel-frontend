@@ -92,8 +92,9 @@ export default class RegisterScreen extends Component {
                     <View style={[styles.topLine]}>
                     </View>
                 </View>
-                <View style={[styles.inputs]}>
-                    <View style={[styles.mailView]}>
+
+                <View style={[styles.allInput]}>
+                    {/* <View style={[styles.mailView]}>
                         <TextInput
                             style={[styles.mailInput]}
                             placeholder='邮箱/手机号码'
@@ -101,9 +102,9 @@ export default class RegisterScreen extends Component {
                             onChangeText={(mail) => { this.setState({ mail }) }}
                         />
                     </View>
-                    <View style={[styles.firstLine]}>
-                    </View>
-                    <View style={[styles.codeView]}>
+                    {/* <View style={[styles.firstLine]}>
+                    </View> */}
+                    {/* <View style={[styles.codeView]}>
                         <View style={[styles.code]}>
                             <TextInput
                                 placeholder='验证码'
@@ -123,10 +124,10 @@ export default class RegisterScreen extends Component {
                                 </Text>
                             </View>
                         </TouchableOpacity>
-                    </View>
-                    <View style={[styles.secondLine]}>
+                    </View>  */}
+                    {/* <View style={[styles.secondLine]}>
 
-                    </View>
+                    </View> */}
                     <View style={[styles.codeView]}>
                         <TextInput
                             style={[styles.codeInput]}
@@ -135,8 +136,8 @@ export default class RegisterScreen extends Component {
                             onChangeText={(username) => { this.setState({ username }) }}
                         />
                     </View>
-                    <View style={[styles.firstLine]}>
-                    </View>
+                    {/* <View style={[styles.firstLine]}>
+                    </View> */}
                     <View style={[styles.codeView]}>
                         <View style={[styles.code]}>
                             <TextInput
@@ -147,16 +148,16 @@ export default class RegisterScreen extends Component {
                                 onChangeText={(password) => { this.setState({ password }) }}
                             />
                         </View>
-                        <TouchableOpacity
+                        {/* <TouchableOpacity
                             onPress={() => { this.setState({ invisible1: !invisible1 }) }}
                         >
                             <View style={[styles.visibleView]}>
                                 {invisible1 ? <Ionicons name='eye-off-outline' size={18}></Ionicons> : <Ionicons name='eye-outline' size={18}></Ionicons>}
                             </View>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                     </View>
-                    <View style={[styles.firstLine]}>
-                    </View>
+                    {/* <View style={[styles.firstLine]}>
+                    </View> */}
                     <View style={[styles.codeView]}>
                         <View style={[styles.code]}>
                             <TextInput
@@ -167,30 +168,32 @@ export default class RegisterScreen extends Component {
                                 onChangeText={(repassword) => { this.setState({ repassword }) }}
                             />
                         </View>
-                        <TouchableOpacity
+                        {/* <TouchableOpacity
                             onPress={() => { this.setState({ invisible2: !invisible2 }) }}
                         >
-                            <View style={[styles.visibleView]}>
-                                {invisible2 ? <Ionicons name='eye-off-outline' size={18}></Ionicons> : <Ionicons name='eye-outline' size={18}></Ionicons>}
-                            </View>
-                        </TouchableOpacity>
+                            <View style={[styles.visibleView]}> */}
+                        {/* {invisible2 ? <Ionicons name='eye-off-outline' size={18}></Ionicons> : <Ionicons name='eye-outline' size={18}></Ionicons>} */}
+                        {/* </View>
+                        </TouchableOpacity> */}
                     </View>
                 </View>
                 <View style={[styles.bottoms]}>
                     <TouchableOpacity
-                        onPress={() => { this.props.navigation.navigate('Login') }}
+                        onPress={() => { this.props.navigation.navigate('PasswordLogin') }}
+                        style={[styles.cancel]}
                     >
-                        <View style={[styles.registerView]}>
-                            <Text style={[styles.register]}>
+                        <View style={[styles.cancelView]}>
+                            <Text style={[styles.cancelText]}>
                                 取消
                             </Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={this.handleRegister}
+                        style={[styles.register]}
                     >
-                        <View style={[styles.loginView]}>
-                            <Text style={[styles.login]}>
+                        <View style={[styles.registerView]}>
+                            <Text style={[styles.registerText]}>
                                 注册
                             </Text>
                         </View>
@@ -204,8 +207,10 @@ export default class RegisterScreen extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        // backgroundColor: 'rgb(255,223,105)'
+
+        marginLeft: Dimensions.get('screen').width / 30,
+        marginRight: Dimensions.get('screen').width / 40,
+        marginTop: Dimensions.get('screen').width / 10,
     },
     title: {
         height: Dimensions.get('screen').height / 10,
@@ -215,6 +220,35 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 30,
     },
+    bottoms: {
+        flexDirection: 'row',
+        marginTop: Dimensions.get('screen').width / 8,
+    },
+    cancel: {
+        marginLeft: Dimensions.get('screen').width / 5,
+        backgroundColor: 'blue',
+        width: Dimensions.get('screen').width / 8,
+        height: Dimensions.get('screen').width / 10,
+    },
+    cancelText: {
+        fontSize: 17,
+        color: 'white'
+    },
+    register: {
+        marginLeft: Dimensions.get('screen').width / 5,
+        backgroundColor: 'blue',
+        width: Dimensions.get('screen').width / 8,
+        height: Dimensions.get('screen').width / 10,
+    },
+    registerText: {
+        fontSize: 17,
+        color: 'white'
+    },
+    allInput: {
+        marginTop: Dimensions.get('screen').width / 10,
+        marginLeft: Dimensions.get('screen').width / 20,
+        marginRight: Dimensions.get('screen').width / 20,
+    }
     //     mailInput: {
     //         color: 'rgb(51,51,51)',
     //         fontFamily: global.font_family,
