@@ -1,4 +1,3 @@
-// 样式同PasswordLogin，样式还没写
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, Dimensions } from 'react-native'
 import React, { Component } from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons'
@@ -7,79 +6,115 @@ export default class RegisterScreen extends Component {
         super()
 
         this.state = {
-            invisible1: true,
-            invisible2: true,
-            send: "发送验证码",
-            isTouchable: false,
-            mail: '',
+            data: [],
+            id: [],
+            // invisible1: true,
+            // invisible2: true,
+            // send: "发送验证码",
+            // isTouchable: false,
+            // mail: '',
             password: '',
             repassword: '',
             username: '',
             code: '',
-            msg: ''
+            msg: '',
+            isOK: false,
         }
     }
-    handleSend = () => {
-        if (this.state.send == "发送验证码") {
-            var i = 60;
-            let t = setInterval(() => { this.setState({ send: i-- }) }, 1000);
-            this.setState({ isTouchable: true });
+    // handleSend = () => {
+    //     if (this.state.send == "发送验证码") {
+    //         var i = 60;
+    //         let t = setInterval(() => { this.setState({ send: i-- }) }, 1000);
+    //         this.setState({ isTouchable: true });
 
+    //         var requestOptions = {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json'
+    //             },
+    //             body: JSON.stringify({
+    //                 "email": this.state.mail,
+    //             }),
+    //         };
+
+    //         fetch('http://ouchelper.daoxuan.cc/log/code/', requestOptions)
+    //             .then(response => response.json())
+    //             .then((json) => {
+    //                 console.log(json);
+    //             })
+    //             .catch(error => console.log('error', error));
+    //         setTimeout(() => {
+    //             clearInterval(t);
+    //             this.setState({ send: "发送验证码" });
+    //             this.setState({ isTouchable: false });
+    //         }, 60 * 1000);
+
+    //     }
+    // }
+    handleRegister = () => {
+        // const { username } = this.state.username;
+        // const { password } = this.state.password;
+        // const { repassword } = this.state.repassword;
+        if (this.state.username === '' || this.state.password === '' || this.state.repassword === '') {
+            alert("填写不得为空");
+        } else if (this.state.password == this.state.repassword) {
+            // console.log('name&psw&repsw', this.state.username, this.state.password, this.state.repassword);
             var requestOptions = {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    "email": this.state.mail,
+                    // "username": this.state.username,
+                    "username": this.state.username,
+                    // "password": this.state.password,
+                    "password": this.state.password,
+                    // "re_password": this.state.repassword,
+                    // "code": this.state.code
                 }),
             };
-
-            fetch('http://ouchelper.daoxuan.cc/log/code/', requestOptions)
-                .then(response => response.json())
+            fetch('http://124.70.57.215:8000/register/', requestOptions)
+                // .then(response => response.json())
+                .then((response) => {
+                    if (response.status === 400) {
+                        // throw new Error('注册失败');
+                        alert('该用户名已被占用，请使用其他用户名！');
+                    } else if (response.status === 201) {
+                        alert('注册成功');
+                        this.setState({ isOK: true })
+                        // this.setState({ data: json })
+                        // this.props.navigation.navigate('PasswordLogin');
+                    } else {
+                        console.log('response.status:', response.status);
+                        alert('出错啦');
+                    }
+                    // this.setState({ msg: json.msg }, () => {
+                    //     if (this.state.msg == "注册成功") {
+                    //         this.props.navigation.navigate('Login');
+                    //     } else {
+                    //         Alert.alert(this.state.msg);
+                    //     }
+                    // });
+                    // console.log(msg);
+                })
                 .then((json) => {
-                    console.log(json);
+                    console.log('isOK:', this.state.isOK);
+                    if (this.state.isOK) {
+                        // this.setState({ id: json.id });
+                        // if (this.state.id) {
+                        this.props.navigation.navigate('PasswordLogin');
+                        // }
+                    }
                 })
                 .catch(error => console.log('error', error));
-            setTimeout(() => {
-                clearInterval(t);
-                this.setState({ send: "发送验证码" });
-                this.setState({ isTouchable: false });
-            }, 60 * 1000);
-
+        } else {
+            alert("两遍密码不一致，请重新输入");
         }
-    }
-    handleRegister = () => {
-        var requestOptions = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                "username": this.state.username,
-                "password": this.state.password,
-                "re_password": this.state.repassword,
-                "code": this.state.code
-            }),
-        };
-        fetch('http://ouchelper.daoxuan.cc/log/register/', requestOptions)
-            .then(response => response.json())
-            .then((json) => {
-                console.log(json);
-                this.setState({ msg: json.msg }, () => {
-                    if (this.state.msg == "注册成功") {
-                        this.props.navigation.navigate('Login');
-                    } else {
-                        Alert.alert(this.state.msg);
-                    }
-                });
-                console.log(msg);
-            })
-            .catch(error => console.log('error', error));
+
 
     }
     render() {
-        const { invisible1, invisible2, send } = this.state;
+        // const { invisible1, invisible2, send } = this.state;
         return (
             <View style={styles.container}>
 
@@ -94,40 +129,6 @@ export default class RegisterScreen extends Component {
                 </View>
 
                 <View style={[styles.allInput]}>
-                    {/* <View style={[styles.mailView]}>
-                        <TextInput
-                            style={[styles.mailInput]}
-                            placeholder='邮箱/手机号码'
-                            maxLength={25}
-                            onChangeText={(mail) => { this.setState({ mail }) }}
-                        />
-                    </View>
-                    {/* <View style={[styles.firstLine]}>
-                    </View> */}
-                    {/* <View style={[styles.codeView]}>
-                        <View style={[styles.code]}>
-                            <TextInput
-                                placeholder='验证码'
-                                style={[styles.codeInput]}
-                                maxLength={10}
-                                onChangeText={(code) => { this.setState({ code }) }}
-                            //secureTextEntry={true}
-                            />
-                        </View>
-                        <TouchableOpacity
-                            onPress={this.handleSend}
-                            disabled={this.state.isTouchable}
-                        >
-                            <View style={[styles.sendCodeView]}>
-                                <Text style={[styles.sendCode]}>
-                                    {send}
-                                </Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>  */}
-                    {/* <View style={[styles.secondLine]}>
-
-                    </View> */}
                     <View style={[styles.codeView]}>
                         <TextInput
                             style={[styles.codeInput]}
@@ -136,47 +137,30 @@ export default class RegisterScreen extends Component {
                             onChangeText={(username) => { this.setState({ username }) }}
                         />
                     </View>
-                    {/* <View style={[styles.firstLine]}>
-                    </View> */}
                     <View style={[styles.codeView]}>
                         <View style={[styles.code]}>
                             <TextInput
                                 placeholder='设置密码'
                                 style={[styles.codeInput]}
-                                secureTextEntry={this.state.invisible1}
+                                secureTextEntry={true}
                                 maxLength={18}
                                 onChangeText={(password) => { this.setState({ password }) }}
                             />
                         </View>
-                        {/* <TouchableOpacity
-                            onPress={() => { this.setState({ invisible1: !invisible1 }) }}
-                        >
-                            <View style={[styles.visibleView]}>
-                                {invisible1 ? <Ionicons name='eye-off-outline' size={18}></Ionicons> : <Ionicons name='eye-outline' size={18}></Ionicons>}
-                            </View>
-                        </TouchableOpacity> */}
                     </View>
-                    {/* <View style={[styles.firstLine]}>
-                    </View> */}
                     <View style={[styles.codeView]}>
-                        <View style={[styles.code]}>
+                        <View style={[styles.codeInputS]}>
                             <TextInput
                                 placeholder='确认密码'
                                 style={[styles.codeInput]}
-                                secureTextEntry={this.state.invisible2}
+                                secureTextEntry={true}
                                 maxLength={18}
                                 onChangeText={(repassword) => { this.setState({ repassword }) }}
                             />
                         </View>
-                        {/* <TouchableOpacity
-                            onPress={() => { this.setState({ invisible2: !invisible2 }) }}
-                        >
-                            <View style={[styles.visibleView]}> */}
-                        {/* {invisible2 ? <Ionicons name='eye-off-outline' size={18}></Ionicons> : <Ionicons name='eye-outline' size={18}></Ionicons>} */}
-                        {/* </View>
-                        </TouchableOpacity> */}
                     </View>
                 </View>
+
                 <View style={[styles.bottoms]}>
                     <TouchableOpacity
                         onPress={() => { this.props.navigation.navigate('PasswordLogin') }}

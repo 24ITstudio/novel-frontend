@@ -1,4 +1,4 @@
-// 缺少功能，点击后将小说个性name传入Details
+
 import React, { Component } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { TouchableOpacity, View, Text, Button, ActivityIndicator, Image, StyleSheet, FlatList, ScrollView, Dimensions } from 'react-native';
