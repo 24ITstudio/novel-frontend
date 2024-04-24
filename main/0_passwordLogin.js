@@ -11,7 +11,7 @@ export default class PasswordLoginScreen extends Component {
 
             username: '',
             password: '',
-            token: [],
+            token: '',
 
             refresh: '',
             access: ''

@@ -1,9 +1,9 @@
 import { TransitionIOSSpec } from '@react-navigation/stack/lib/typescript/src/TransitionConfigs/TransitionSpecs';
 import React, { Component } from 'react';
-import { TouchableOpacity, View, Text, Button, StyleSheet, Image, Dimensions, FlatList } from 'react-native';
+import { TouchableOpacity, View, Text, Button, StyleSheet, Image, Dimensions, FlatList, Alert, AsyncStorage, Modal, TextInput } from 'react-native';
 // import { FlatList } from 'react-native-gesture-handler';
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import { ITLogo } from "../asserts/IT.jpg";
+// import { ITLogo } from "../asserts/IT.jpg";
 
 export default class UserInfoScreen extends Component {
     // function UserInfoScreen({ navigation }) {
@@ -12,36 +12,61 @@ export default class UserInfoScreen extends Component {
         this.state = {
             id: [],
             isLoading: true,
-            flag: false,
-
+            // flag: false,
+            passModelVisible: false,
+            nameModelVisible: false,
             username: '',
+            newUserName: '',
             password: '',
+            newPassword: '',
+            reNewPassword: '',
         };
     }
 
     componentDidMount() {
         const { route, navigation } = this.props;
-        const { username } = route.params;
+        const { username, password } = route.params;
         // console.log('Username:', username);
     }
 
-    render = () => {
-        // const { route } = this.props;
-        // const { username } = route.params;
-        // const { username } = this.props.route.params;
-        // const { username } = this.state;
-        const { route, navigation } = this.props;
-        const { username } = route.params;
-        // console.log('4_userInfo_Username:', username);
+    // handleLogout = async () => {
+    //     try {
+    //         await AsyncStorage.removeItem('username');
+    //         await AsyncStorage.removeItem('password');
+    //         this.props.navigation.navigate('PasswordLogin');
+    //     } catch (error) {
+    //         console.error('清除用户凭据时出错:', error);
+    //     }
+    // }
 
-        // const username = route && route.params ? route.params.username : "无";
+    handleLogout = () => {
+        this.props.navigation.navigate('PasswordLogin');
+    }
+
+    handleChangePassword = () => {
+        const { route, navigation } = this.props;
+        const { username, password } = route.params;
+        // const { newPassword, reNewPassword } = this.state;
+        if (this.state.newPassword === '' || this.state.reNewPassword === '') {
+            alert('输入不得为空');
+        } else if (this.state.newPassword != this.state.reNewPassword) {
+            alert('两次输入的密码不一致');
+        } else if (this.state.newPassword == this.state.reNewPassword) {
+
+        } else {
+            alert('修改出错');
+        }
+    }
+
+    render = () => {
+        const { route, navigation } = this.props;
+        const { username, password } = route.params;
+
 
         return (
             <View >
-                {/* <View style={[styles.top]}> */}
                 <View style={[styles.top]}>
                     <View style={[styles.headDisplay]}>
-                        {/* <Text>头像</Text> */}
                         <Image
                             source={require('../asserts/IT.jpg')}
                             style={[styles.head]}
@@ -51,17 +76,17 @@ export default class UserInfoScreen extends Component {
                         <View style={[styles.nameDisplay]}>
                             <Text style={[styles.nameInner]}>{username}</Text>
                         </View>
-                        {/* <View> */}
                         <Text style={[styles.ITIntro]}>IT小说，快乐追书~</Text>
-                        {/* </View> */}
                     </View>
                     <View style={[styles.editInfo]}>
-                        {/* <Text>编辑资料 ＞</Text> */}
                         <Button
-                            title='编辑资料 ＞'
+                            title='修改名称 ＞'
                             color='#0e53ff'
+                            // onPress={() => changeName(this.state.id)}
+                            onPress={() => this.setState({ nameModelVisible: true })}
                         />
                     </View>
+
                 </View>
                 {/* </View> */}
 
@@ -72,49 +97,81 @@ export default class UserInfoScreen extends Component {
             </View> */}
 
                 <View style={[styles.mineButtons]}>
-                    <TouchableOpacity style={[styles.selfFunc]}>
+                    <TouchableOpacity
+                        style={[styles.selfFunc]}
+                        onPress={() => Alert.alert(' 我的评论 功能未开通，尽情期待')}
+                    >
                         <Image
                             source={require('../asserts/comment.png')}
                             style={[styles.funcImg]}
                         />
                         <Text style={[styles.funcName]}>我的评论</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.selfFunc]}>
+                    <TouchableOpacity
+                        style={[styles.selfFunc]}
+                        onPress={() => Alert.alert(' 我的消息 功能未开通，尽情期待')}
+                    >
                         <Image
                             source={require('../asserts/formation.png')}
                             style={[styles.funcImg]}
                         />
                         <Text style={[styles.funcName]}>我的消息</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.selfFunc]}>
+                    <TouchableOpacity
+                        style={[styles.selfFunc]}
+                        onPress={() => this.setState({ passModelVisible: true })}
+                    >
                         <Image
                             source={require('../asserts/password.png')}
                             style={[styles.funcImg]}
                         />
                         <Text style={[styles.funcName]}>修改密码</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.selfFunc]}>
+                    <TouchableOpacity
+                        style={[styles.selfFunc]}
+                        onPress={this.handleLogout}
+                    >
                         <Image
                             source={require('../asserts/logout.png')}
                             style={[styles.funcImg]}
                         />
                         <Text style={[styles.funcName]}>退出登录</Text>
                     </TouchableOpacity>
-                    {/* <MineButton person={{ name: "我的评论", source: 'comment', value: 1 }} />
-                <MineButton person={{ name: "我的消息", source: "chatbubble-ellipses-outline", value: 1 }} />
-                <MineButton person={{ name: "修改密码", source: "document-text-outline", value: 1 }} />
-                <MineButton person={{ name: "退出登录", source: "star-outline", value: 1 }} /> */}
                 </View>
+                <Modal
+                    visible={this.state.nameModelVisible}
+                    animationType="slide"
+                    transparent={true}
+                    onRequestClose={() => this.setState({ nameModelVisible: false })}
+                >
+                    <View style={styles.modalContainer}>
+                        <View style={styles.modalContent}>
+                            <TextInput
+                                style={styles.input}
+                                placeholder="请输入新密码"
+                                value={this.state.newPassword}
+                                onChangeText={newPassword => this.setState({ newPassword })}
+                                secureTextEntry
+                            />
+                            <TextInput
+                                style={styles.input}
+                                placeholder="请确认新密码"
+                                value={this.state.reNewPassword}
+                                onChangeText={reNewPassword => this.setState({ reNewPassword })}
+                                secureTextEntry
+                            />
+                            {/* {this.state.error ? <Text style={styles.error}>{error}</Text> : null} */}
+                            <Button title="确认修改" onPress={this.handleChangePassword} />
+                            <Button title="取消" onPress={() => this.setState({ modalVisible: false })} />
+                        </View>
+                    </View>
+                </Modal>
+                <Modal
+                    visible={this.state.passModelVisible}
+                >
 
-
-                {/* < View >
-                < Button
-                    title="Go to Details"
-                    onPress={() => navigation.navigate('Details')
-                    }
-                />
-            </View > */}
-            </View>
+                </Modal>
+            </View >
         )
     };
 }
@@ -192,7 +249,32 @@ const styles = StyleSheet.create({
         paddingTop: 20,
         fontWeight: 'bold',
         // textAlign: 70,
-    }
+    },
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    modalContent: {
+        backgroundColor: '#fff',
+        padding: 20,
+        borderRadius: 5,
+        width: '80%',
+    },
+    input: {
+        width: '100%',
+        height: 40,
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 5,
+        paddingHorizontal: 10,
+        marginBottom: 10,
+    },
+    error: {
+        color: 'red',
+        marginBottom: 10,
+    },
 })
 
 // function InfoDisplay({ info }) {

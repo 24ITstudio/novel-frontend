@@ -85,7 +85,7 @@ export default class RegisterScreen extends Component {
                         // this.setState({ data: json })
                         // this.props.navigation.navigate('PasswordLogin');
                     } else {
-                        console.log('response.status:', response.status);
+                        // console.log('response.status:', response.status);
                         alert('出错啦');
                     }
                     // this.setState({ msg: json.msg }, () => {
@@ -98,7 +98,7 @@ export default class RegisterScreen extends Component {
                     // console.log(msg);
                 })
                 .then((json) => {
-                    console.log('isOK:', this.state.isOK);
+                    // console.log('isOK:', this.state.isOK);
                     if (this.state.isOK) {
                         // this.setState({ id: json.id });
                         // if (this.state.id) {
