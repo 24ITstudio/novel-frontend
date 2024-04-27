@@ -19,15 +19,15 @@ const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 function HomeTabs({ route }) {
-  const { username, password, token } = route.params;
+  const { username, password } = route.params;
   return (
     <Tab.Navigator
       initialRouteName='Home'
     >
-      <Tab.Screen name="Home" component={HomeScreen} options={{ title: '首页' }} initialParams={{ username, password, token }} />
-      <Tab.Screen name="Classification" component={ClassificationScreen} options={{ title: '分类', headerShown: false }} initialParams={{ username, password, token }} />
-      <Tab.Screen name="Bookrak" component={BookrakScreen} options={{ title: '书架' }} initialParams={{ username, password, token }} />
-      <Tab.Screen name="UserInfo" component={UserInfoScreen} options={{ title: '我的' }} initialParams={{ username, password, token }} />
+      <Tab.Screen name="Home" component={HomeScreen} options={{ title: '首页' }} initialParams={{ username, password }} />
+      <Tab.Screen name="Classification" component={ClassificationScreen} options={{ title: '分类', headerShown: false }} initialParams={{ username, password }} />
+      <Tab.Screen name="Bookrak" component={BookrakScreen} options={{ title: '书架' }} initialParams={{ username, password }} />
+      <Tab.Screen name="UserInfo" component={UserInfoScreen} options={{ title: '我的' }} initialParams={{ username, password }} />
     </Tab.Navigator>
   )
 }

@@ -44,10 +44,10 @@ export default class DetailsScreen extends Component {
 
     fetchChapter = async (chapterNumber) => {
         const { route, navigation } = this.props;
-        const { username, id, name, max_chapter, token } = route.params;
-        this.setState({ token: this.token });
-        console.log('5_id_name_max_token:', id, name, max_chapter, token);
-
+        const { username, id, name, max_chapter } = route.params;
+        // this.setState({ token: this.token });
+        console.log('5_id_name_max:', id, name, max_chapter);
+        //获取对应小说章节
         const url = `http://124.70.57.215:8000/novel/${id}-${chapterNumber}`;
         try {
             const response = await axios.get(url);
@@ -62,7 +62,44 @@ export default class DetailsScreen extends Component {
             console.error('fetchChapter错误：', error);
             // }
         }
-        const url_2 = `http://124.70.57.215:8000/favor/${id}`;
+
+        //获取用户token
+        // const url_2 = `http://124.70.57.215:8000/token-auth/`;
+
+        // var myHeaders = new Headers();
+        // myHeaders.append("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
+        // myHeaders.append("Content-Type", "application/json");
+
+        // var raw = JSON.stringify({
+        //     "username": this.state.username,
+        //     "password": this.state.password
+        // });
+
+        // var requestOptions = {
+        //     method: 'POST',
+        //     headers: myHeaders,
+        //     body: raw,
+        //     redirect: 'follow'
+        // };
+
+        // fetch("http://124.70.57.215:8000/token-auth/", requestOptions)
+        //     .then(response => {
+        //         if (response.status === 200) {
+        //             return response.json();
+        //         }
+        //     })
+        //     .then(data => {
+        //         this.setState({ token: data.token })
+        //     })
+
+
+
+        // .then(response => response.text())
+        // .then(result => console.log(result))
+        // .catch(error => console.log('error', error));
+
+        //为对应用户添加书架
+        // const url_3 = `http://124.70.57.215:8000/favor/${id}`;
         var myHeaders = new Headers();
         myHeaders.append("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
         myHeaders.append("Authorization", this.state.token);
@@ -74,9 +111,14 @@ export default class DetailsScreen extends Component {
         };
 
         fetch("http://124.70.57.215:8000/favor//", requestOptions)
-            .then(response => response.text())
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error));
+            .then(response => {
+                if (response.status === 201) {
+                    alert('添加书架成功');
+                }
+            })
+        // .then(response => response.text())
+        // .then(result => console.log(result))
+        // .catch(error => console.log('error', error));
     }
 
     handleNextChapter = async () => {

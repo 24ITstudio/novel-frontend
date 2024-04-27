@@ -19,15 +19,15 @@ export default class PasswordLoginScreen extends Component {
     }
     handleLogin = () => {
         const { username, password } = this.state;
-        console.log('handleLogin:', username, password);
+        // console.log('handleLogin:', username, password);
 
         var myHeaders = new Headers();
         myHeaders.append("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
         myHeaders.append("Content-Type", "application/json");
 
         var raw = JSON.stringify({
-            "username": this.state.username,
-            "password": this.state.password,
+            "username": username,
+            "password": password,
 
         });
 
@@ -41,21 +41,35 @@ export default class PasswordLoginScreen extends Component {
         fetch("http://124.70.57.215:8000/token-auth/", requestOptions)
             .then(response => {
                 if (response.status === 200) {
-                    this.props.navigation.navigate('IT_novel', { username, password });
-                    // console.log(response.status);
                     return response.json();
                 } else {
-                    // console.log(response.status);
                     Alert.alert('用户账号密码输入错误！');
                     throw new Error('Failed to login');
                 }
             })
             .then(data => {
-                if (data.token) {
-                    this.setState({ token: data.token })
-                    this.props.navigation.navigate('IT_novel', { username, password, token });
-                }
+                this.props.navigation.navigate('IT_novel', { username, password });
             })
+
+            // .then(response => {
+            //     if (response.status === 200) {
+            //         this.props.navigation.navigate('IT_novel', { username, password });
+            //         // console.log(response.status);
+            //         return response.json();
+            //     } else {
+            //         // console.log(response.status);
+            //         Alert.alert('用户账号密码输入错误！');
+            //         throw new Error('Failed to login');
+            //     }
+            // })
+
+
+            // .then(data => {
+            //     if (data.token) {
+            //         this.setState({ token: data.token })
+            //         this.props.navigation.navigate('IT_novel', { username, password });
+            //     }
+            // })
             // .then(data => {
             //     try {
             //         if (data && data.token) {

@@ -67,7 +67,7 @@ export default class HomeScreen extends Component {
                 id: id,
                 max_chapter: max_chapter,
                 name: name,
-                token: this.state.token
+                // token: this.state.token
             });
         }
 
