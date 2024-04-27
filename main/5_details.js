@@ -15,6 +15,7 @@ export default class DetailsScreen extends Component {
 
             username: '',
             password: '',
+            token: '',
             chapterData: [],
             currentChapter: 1,
             chapterContent: {},
@@ -43,8 +44,9 @@ export default class DetailsScreen extends Component {
 
     fetchChapter = async (chapterNumber) => {
         const { route, navigation } = this.props;
-        const { username, id, name, max_chapter } = route.params;
-        console.log('5_id_name_max:', id, name, max_chapter);
+        const { username, id, name, max_chapter, token } = route.params;
+        this.setState({ token: this.token });
+        console.log('5_id_name_max_token:', id, name, max_chapter, token);
 
         const url = `http://124.70.57.215:8000/novel/${id}-${chapterNumber}`;
         try {
@@ -60,6 +62,21 @@ export default class DetailsScreen extends Component {
             console.error('fetchChapter错误：', error);
             // }
         }
+        const url_2 = `http://124.70.57.215:8000/favor/${id}`;
+        var myHeaders = new Headers();
+        myHeaders.append("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
+        myHeaders.append("Authorization", this.state.token);
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+
+        fetch("http://124.70.57.215:8000/favor//", requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
     }
 
     handleNextChapter = async () => {
@@ -104,6 +121,9 @@ export default class DetailsScreen extends Component {
         // username为测试数据，最后要删掉，只传入小说id，名字,最大章节数
         const { username, id, name, max_chapter } = this.props.route.params;
         const { currentChapter, chapterContent } = this.state;
+        const addRak = (id) => {
+
+        }
 
         console.log("chapterContent_1:", this.state.chapterContent);
         console.log("chapterContent_2:", chapterContent);
@@ -113,9 +133,14 @@ export default class DetailsScreen extends Component {
                 {/* <Text style={[styles.title]}>《{name}》, ID：{id}, 共有{max_chapter}个章节</Text> */}
                 <View style={[styles.title]}>
                     <Text style={[styles.title_1]}>《{name}》  共{max_chapter}章</Text>
-                    <Text style={[styles.title_2]}>当前章节: {currentChapter}</Text>
-                </View>
+                    <Button
+                        title='加入书架'
+                        color='#0e53ff'
+                        onPress={() => addRak(this.id)}
+                    />
 
+                </View>
+                <Text style={[styles.title_2]}>当前章节: {currentChapter}</Text>
                 {/* <Text>Current Chapter: {currentChapter}</Text> */}
 
                 <Text style={[styles.content]}>章节内容：{chapterContent.content}</Text>

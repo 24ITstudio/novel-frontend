@@ -16,6 +16,7 @@ export default class HomeScreen extends Component {
 
             username: '',
             password: '',
+            token: '',
         };
     }
 
@@ -52,7 +53,8 @@ export default class HomeScreen extends Component {
     render() {
         const { data, isLoading } = this.state;
         const { route, navigation } = this.props;
-        const { username } = route.params;
+        const { username, token } = route.params;
+        this.setState({ token: this.token });
         // console.log('1_Home_Username2:', username);
 
         // const DetailsGo = () => {
@@ -64,7 +66,8 @@ export default class HomeScreen extends Component {
                 username: this.props.route.params.username,
                 id: id,
                 max_chapter: max_chapter,
-                name: name
+                name: name,
+                token: this.state.token
             });
         }
 

@@ -9,6 +9,7 @@ export default class BookrakScreen extends Component {
 
             username: '',
             password: '',
+            token: '',
             userID: '',
             favorsIDs: [],
             favorsDatas: [],
@@ -167,7 +168,8 @@ export default class BookrakScreen extends Component {
     render() {
         const { favorsDatas, isLoading } = this.state;
         const { route, navigation } = this.props;
-        const { username } = route.params;
+        const { username, token } = route.params;
+        this.setState({ token: this.token });
         // const DetailsGo = () => {
         //     // const { username, password } = this.state;
         //     navigation.navigate('Details', { username });
@@ -177,7 +179,8 @@ export default class BookrakScreen extends Component {
                 username: this.props.route.params.username,
                 id: id,
                 max_chapter: max_chapter,
-                name: name
+                name: name,
+                token: this.state.token,
             });
         }
         if (favorsDatas.length) {

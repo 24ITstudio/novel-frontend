@@ -43,11 +43,17 @@ export default class PasswordLoginScreen extends Component {
                 if (response.status === 200) {
                     this.props.navigation.navigate('IT_novel', { username, password });
                     // console.log(response.status);
-                    // return response.json();
+                    return response.json();
                 } else {
                     // console.log(response.status);
                     Alert.alert('用户账号密码输入错误！');
                     throw new Error('Failed to login');
+                }
+            })
+            .then(data => {
+                if (data.token) {
+                    this.setState({ token: data.token })
+                    this.props.navigation.navigate('IT_novel', { username, password, token });
                 }
             })
             // .then(data => {
